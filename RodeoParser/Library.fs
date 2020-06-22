@@ -4,10 +4,11 @@ open System.Net
 open System.Net.Sockets
 open System.Text
 open System.Threading.Tasks
+open System
+open System.Net.Http
 
 module Say =
     open FSharp.Data
-    let BASE_URL = "http://192.168.43.73:15001";
     
     type GallagherType = XmlProvider<Schema="./AnimalSchemaProposal.xsd">
     
@@ -17,30 +18,31 @@ module Say =
 
         let newsock = new UdpClient(ipep);
 
-        let sender = new IPEndPoint(IPAddress.Any, 0);
+        let mutable sender = new IPEndPoint(IPAddress.Any, 0);
 
-        let data = newsock.Receive(ref sender);
+        let data = newsock.Receive(&sender);
         
-        sender.Address.ToString()
-        
-        
-        
+        sender.Address.ToString();
        
             
     let getAsync url =
-        
         async {
-            let result = discoveryEndpoint()
-            
-            let httpClient = new System.Net.Http.HttpClient()
-            let! response = httpClient.GetAsync(result + url) |> Async.AwaitTask
-            response.EnsureSuccessStatusCode () |> ignore
-            let! content = response.Content.ReadAsStringAsync() |> Async.AwaitTask
-            return content
+            let baseUrl = discoveryEndpoint();
+            let fullUrl = sprintf "http://%s:%i%s" baseUrl 15001 url
+            let httpClient = new HttpClient();
+            try
+                use! resp = httpClient.GetAsync(fullUrl, HttpCompletionOption.ResponseHeadersRead) |> Async.AwaitTask                       
+                resp.EnsureSuccessStatusCode |> ignore
+
+                let! str = resp.Content.ReadAsStringAsync() |> Async.AwaitTask
+                return str
+            with
+                | :? HttpRequestException as ex -> return ex.Message
         }
-    let getSession (url) =
+    
+    let getSession () =
       async {
-          let! animalsResponse = getAsync (url + "/session");
+          let animalsResponse = getAsync "/sessions" |> Async.RunSynchronously;
           let animals = GallagherType.Parse animalsResponse
           
           if (animals.Sessions.IsSome) then
@@ -52,14 +54,9 @@ module Say =
              printfn "%s" animals.Header.CreatedBy
       }
       
-    let getSessionsTask (url) =
-        let task = new Task(fun () -> getSession(url) |> Async.StartImmediate)
+    let getSessionsTask () =
+        let task = new Task(fun () -> getSession() |> Async.StartImmediate)
         task.RunSynchronously()
-        task
-    
-    let discoveryEndpointTask () =
-        let task = discoveryEndpoint()
-        //task.RunSynchronously();
         task
       
    
