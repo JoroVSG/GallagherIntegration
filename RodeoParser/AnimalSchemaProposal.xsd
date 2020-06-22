@@ -1,0 +1,980 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ads="http://animaldatainterface.org/Schema/2014/ADI"
+           attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://animaldatainterface.org/Schema/2014/ADI"
+           version="1.0">
+  <xs:element name="body">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="version" type="xs:decimal" />
+              <xs:element name="createdBy" type="xs:string" />
+              <xs:element name="dateTimeCreated" type="xs:dateTime" />
+              <xs:element name="userName" type="xs:string" minOccurs="0"/>
+              <xs:element name="password" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="response" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="success" type="xs:boolean" />
+              <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+              <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="treatments" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="treatment" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="type" minOccurs="0" type="xs:string" />
+                    <xs:element name="product" minOccurs="0" type="xs:string" />
+                    <xs:element name="dosage" minOccurs="0" type="xs:decimal" />
+                    <xs:element name="units" minOccurs="0" type="xs:string" />
+                    <xs:element name="withholdingperiod" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:unsignedShort">
+                          <xs:maxExclusive value="1000" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="exportslaughterinterval" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:unsignedShort">
+                          <xs:maxExclusive value="1000" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="reference" type="xs:unsignedShort" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="treatmentsResponse" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="treatment" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="type" minOccurs="0" type="xs:string" />
+                    <xs:element name="product" minOccurs="0" type="xs:string" />
+                    <xs:element name="dosage" minOccurs="0" type="xs:decimal" />
+                    <xs:element name="units" minOccurs="0" type="xs:string" />
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="responseSummary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberSucceeded" type="xs:integer" />
+                    <xs:element name="numberFailed" type="xs:integer" />
+                    <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="traits" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="text" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                      <xs:element name="name" type="xs:string" minOccurs="1"/>
+                      <xs:element name="maxLength" type="xs:unsignedShort" />
+                    </xs:sequence>
+                    <xs:attribute name="use" use="required">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="lifeData"/>
+                          <xs:enumeration value="sessionData"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="lov" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                      <xs:element name="name" type="xs:string" minOccurs="1"/>
+                      <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="use" use="required">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="lifeData"/>
+                          <xs:enumeration value="sessionData"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="numeric" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                      <xs:element name="name" type="xs:string" minOccurs="1"/>
+                      <xs:element name="minValue" type="xs:decimal"/>
+                      <xs:element name="maxValue" type="xs:decimal"/>
+                      <xs:element name="precision" type="xs:unsignedShort"/>
+                      <xs:element name="units" type="xs:string" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute name="use" use="required">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="lifeData"/>
+                          <xs:enumeration value="sessionData"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="dateTrait" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                      <xs:element name="name" type="xs:string" minOccurs="1"/>
+                      <xs:element name="allowGreaterThanToday" type="xs:boolean" />
+                      <xs:element name="allowLessThanToday" type="xs:boolean" />
+                      <xs:element name="allowToday" type="xs:boolean" />
+                    </xs:sequence>
+                    <xs:attribute name="use" use="required">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="lifeData"/>
+                          <xs:enumeration value="sessionData"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+              </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="traitsResponse" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="text" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="name" type="xs:string" minOccurs="1"/>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="use" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="lifeData"/>
+                        <xs:enumeration value="sessionData"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="lov" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="name" type="xs:string" minOccurs="1"/>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="use" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="lifeData"/>
+                        <xs:enumeration value="sessionData"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="numeric" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="name" type="xs:string" minOccurs="1"/>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="use" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="lifeData"/>
+                        <xs:enumeration value="sessionData"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="dateTrait" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="name" type="xs:string" minOccurs="1"/>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="use" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="lifeData"/>
+                        <xs:enumeration value="sessionData"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="responseSummary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberSucceeded" type="xs:integer" />
+                    <xs:element name="numberFailed" type="xs:integer" />
+                    <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="transfers" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="transfer" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="from" type="xs:string" minOccurs="0"/>
+                    <xs:element name="to" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                  <xs:attribute name="reference" type="xs:unsignedShort" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="transfersResponse" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="transfer" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:sequence minOccurs="1">
+                      <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                      <xs:element name="from" type="xs:string" minOccurs="0"/>
+                      <xs:element name="to" type="xs:string" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="responseSummary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberSucceeded" type="xs:integer" />
+                    <xs:element name="numberFailed" type="xs:integer" />
+                    <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="animals" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="animal" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="animal_id" type="xs:string" minOccurs="0" />
+                    <xs:element name="tag" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="eid" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="regionalId" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="alternateId" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="changeIds" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="changeId" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:choice minOccurs="0">
+                                <xs:element name="animal_id" type="xs:string"/>
+                                <xs:element name="tag" type="xs:string"/>
+                                <xs:element name="eid" type="xs:string"/>
+                                <xs:element name="regionalId" type="xs:string"/>
+                                <xs:element name="alternateId" type="xs:string"/>
+                              </xs:choice>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="group" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="sex" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="dob" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:date">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="breed" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="colour" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="sire" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="field" type="xs:string" use="required" />
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="dam" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="field" type="xs:string" use="required" />
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="originalTag" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="originalLocationId" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="locationFarm" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="locationProperty" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="locationArea" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="donorDam" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="animalNote" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="status" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="customLifeTimeDatas" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="customLifeTimeData" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="name" type="xs:string" />
+                                <xs:element name="value" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="dateUpdated" type="xs:dateTime" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="animalsResponse" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="animal" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="animal_id" type="xs:string" minOccurs="0" />
+                    <xs:element name="tag" type="xs:string" minOccurs="0" />
+                    <xs:element name="eid" type="xs:string" minOccurs="0" />
+                    <xs:element name="regionalId" type="xs:string" minOccurs="0" />
+                    <xs:element name="alternateId" type="xs:string" minOccurs="0" />
+
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="responseSummary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberSucceeded" type="xs:integer" />
+                    <xs:element name="numberFailed" type="xs:integer" />
+                    <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="sessions" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="session" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="session_id" type="xs:string" minOccurs="0" />
+                    <xs:element name="name" type="xs:string" />
+                    <xs:element name="startDate" type="xs:dateTime" minOccurs="0" />
+                    <xs:element name="locationId" type="xs:string" minOccurs="0" />
+                    <xs:element name="session_kind" type="xs:string" minOccurs="0" />
+
+                    <xs:element name="notes" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="note" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="event" minOccurs="0">
+                      <xs:complexType>
+                        <xs:choice>
+                          <xs:element name="birth" />
+                          <xs:element name="purchase" />
+                          <xs:element name="seen" />
+                          <xs:element name="transfer" />
+                          <xs:element name="sale" />
+                          <xs:element name="death" />
+                        </xs:choice>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="defaultTraits" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="defaultTrait" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="name" type="xs:string" />
+                                <xs:element name="defaultValue" type="xs:string" minOccurs="0" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="defaultTreatments" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="defaultTreatment" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="type" minOccurs="0" type="xs:string" />
+                                <xs:element name="product" minOccurs="0" type="xs:string" />
+                                <xs:element name="defaultAmount" minOccurs="0" type="xs:decimal" />
+                                <xs:element name="defaultUnits" minOccurs="0" type="xs:string" />
+                                <xs:element name="defaultBatch" minOccurs="0" type="xs:string" />
+                                <xs:element name="defaultWithholdingdate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="defaultExportslaughterdate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                              </xs:sequence>
+                              <xs:attribute name="reference" type="xs:unsignedShort" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="animals" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="animal" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                                <xs:element name="animalId" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:choice minOccurs="0">
+                                      <xs:element name="animal_id" type="xs:string"/>
+                                      <xs:element name="tag" type="xs:string"/>
+                                      <xs:element name="eid" type="xs:string"/>
+                                      <xs:element name="regionalId" type="xs:string"/>
+                                      <xs:element name="alternateId" type="xs:string"/>
+                                    </xs:choice>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="weight" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:decimal">
+                                        <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="conditionScore" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:decimal">
+                                        <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="draft" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+
+                                <xs:element name="notes" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="note" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+
+                                <xs:element name="health" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="event" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:choice>
+                                      <xs:element name="birth">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="purchase">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="grossAmount" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="netAmount" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="seen">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="transfer">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                          <xs:attribute name="reference" type="xs:unsignedShort" use="required" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="sale">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="grossAmount" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="netAmount" type="xs:string" minOccurs="0"/>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="death">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="note" type="xs:string" minOccurs="0" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:choice>
+                                  </xs:complexType>
+                                </xs:element>
+
+                                <xs:element name="treatments" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="treatment" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="type" minOccurs="0" type="xs:string" />
+                                            <xs:element name="product" minOccurs="0" type="xs:string" />
+                                            <xs:element name="amount" minOccurs="0" type="xs:decimal" />
+                                            <xs:element name="units" minOccurs="0" type="xs:string" />
+                                            <xs:element name="batch" minOccurs="0" type="xs:string" />
+                                            <xs:element name="withholdingdate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="exportslaughterdate" type="xs:date" minOccurs="0" maxOccurs="1" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                          <xs:attribute name="reference" type="xs:unsignedShort" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+
+                                <xs:element name="customSessionDatas" minOccurs="0" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="customSessionData" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="name" type="xs:string" />
+                                            <xs:element name="value" type="xs:string" />
+                                          </xs:sequence>
+                                          <xs:attribute name="recorded" type="xs:dateTime" use="optional"/>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+
+                                <xs:element name="datetime" minOccurs="0" type="xs:dateTime" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="count" type="xs:integer" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="sessionType" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="standard"/>
+                        <xs:enumeration value="draftList"/>
+                        <xs:enumeration value="template"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:integer" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="sessionsResponse" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="session" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                    <xs:element name="session_id" type="xs:string" />
+                    <xs:element name="animals" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="animal" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="internalIdentifier" minOccurs="0" type="xs:string" />
+                                <xs:element name="animalId" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:choice minOccurs="0">
+                                      <xs:element name="animal_id" type="xs:string"/>
+                                      <xs:element name="tag" type="xs:string"/>
+                                      <xs:element name="eid" type="xs:string"/>
+                                      <xs:element name="regionalId" type="xs:string"/>
+                                      <xs:element name="alternateId" type="xs:string"/>
+                                    </xs:choice>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="response">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="success" type="xs:boolean" />
+                                      <xs:element name="link" type="xs:string" minOccurs="0" />
+                                      <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                                      <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+
+                          <xs:element name="responseSummary" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="numberSucceeded" type="xs:integer" />
+                                <xs:element name="numberFailed" type="xs:integer" />
+                                <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                                <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="response">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="success" type="xs:boolean" />
+                          <xs:element name="link" type="xs:string" minOccurs="0" />
+                          <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                          <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="responseSummary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberSucceeded" type="xs:integer" />
+                    <xs:element name="numberFailed" type="xs:integer" />
+                    <xs:element name="returnCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="returnMessage" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

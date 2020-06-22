@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RodeoDE", "RodeoDE\RodeoDE.csproj", "{056E15E9-306C-4883-983B-8B48EAA032A7}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RodeoParser", "RodeoParser\RodeoParser.fsproj", "{40986517-9F9F-4C1A-8D6B-FBCB2A52180E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{056E15E9-306C-4883-983B-8B48EAA032A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056E15E9-306C-4883-983B-8B48EAA032A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056E15E9-306C-4883-983B-8B48EAA032A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056E15E9-306C-4883-983B-8B48EAA032A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40986517-9F9F-4C1A-8D6B-FBCB2A52180E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40986517-9F9F-4C1A-8D6B-FBCB2A52180E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40986517-9F9F-4C1A-8D6B-FBCB2A52180E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40986517-9F9F-4C1A-8D6B-FBCB2A52180E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

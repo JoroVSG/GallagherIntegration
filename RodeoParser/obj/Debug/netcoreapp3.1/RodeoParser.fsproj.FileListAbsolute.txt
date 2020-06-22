@@ -1,0 +1,8 @@
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/bin/Debug/netcoreapp3.1/RodeoParser.deps.json
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/bin/Debug/netcoreapp3.1/RodeoParser.dll
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/bin/Debug/netcoreapp3.1/RodeoParser.pdb
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/obj/Debug/netcoreapp3.1/RodeoParser.fsprojAssemblyReference.cache
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/obj/Debug/netcoreapp3.1/RodeoParser.AssemblyInfoInputs.cache
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/obj/Debug/netcoreapp3.1/RodeoParser.AssemblyInfo.fs
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/obj/Debug/netcoreapp3.1/RodeoParser.dll
+/home/joro/Desktop/Programming/Work/Experimental/RodeoDE/RodeoParser/obj/Debug/netcoreapp3.1/RodeoParser.pdb
